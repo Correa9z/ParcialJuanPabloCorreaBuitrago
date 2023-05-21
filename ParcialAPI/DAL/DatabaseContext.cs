@@ -18,7 +18,7 @@ namespace ParcialAPI.DAL
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Ticket>().HasIndex(c => c.id).IsUnique();
+            modelBuilder.Entity<Ticket>().HasIndex(j => j.id).IsUnique();
         }
 
 
