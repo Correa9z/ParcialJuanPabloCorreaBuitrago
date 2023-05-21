@@ -8,7 +8,7 @@ namespace ParcialAPI.DAL.Entities
         [Required]
         public Guid id { get; set; }
 
-        public DateOnly? useDate { get; set; }
+        public DateTime? useDate { get; set; }
 
 
         public Boolean isUsed { get; set; }
