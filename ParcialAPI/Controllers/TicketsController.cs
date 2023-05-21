@@ -1,0 +1,119 @@
+﻿using Azure.Messaging;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using ParcialAPI.DAL;
+using ParcialAPI.DAL.Entities;
+
+namespace ParcialAPI.Controllers
+{
+
+    [Route("api/[controller]")]
+    [ApiController]
+
+    public class TicketsController : Controller
+    {
+        private readonly DatabaseContext _context;
+
+        public TicketsController(DatabaseContext context)
+        {
+            _context = context;
+            
+        }
+
+        [HttpPost, ActionName("Post")]
+        [Route("Post")]
+        public async Task<ActionResult> CreateTicket(Ticket ticket)
+        {
+            try
+            {
+                ticket.id = Guid.NewGuid();
+                
+
+                _context.Tickets.Add(ticket);
+                await _context.SaveChangesAsync(); 
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                if (dbUpdateException.InnerException.Message.Contains("duplicate"))
+                    return Conflict("ya existe");
+            }
+            catch (Exception e)
+            {
+                return Conflict(e.Message);
+            }
+
+            return Ok(ticket);
+        }
+
+
+
+        [HttpGet, ActionName("Get")]
+        [Route("Get/{id}")]
+        public async Task<ActionResult<Ticket>> GetTicketById(Guid? id, String entranceGate)
+        {
+            var ticket = await _context.Tickets.FirstOrDefaultAsync(j => j.id == id);
+
+            if (ticket != null)
+            {
+                if (ticket.isUsed == false)
+                {
+                    try
+                    {
+                        ticket.useDate = DateTime.Now;
+                        ticket.isUsed = true;
+                        ticket.entranceGate = entranceGate;
+
+                        _context.Tickets.Update(ticket);
+                        await _context.SaveChangesAsync();
+                    }
+                    catch (DbUpdateException dbUpdateException)
+                    {
+                        if (dbUpdateException.InnerException.Message.Contains("duplicate"))
+                            return Conflict("ya existe");
+                    }
+                    catch (Exception e)
+                    {
+                        return Conflict(e.Message);
+                    }
+
+                    return Ok(ticket);
+
+                }
+                return Conflict("La entrada ya se utilizo");
+
+
+            }
+
+            return NotFound();
+
+        }
+
+        /*
+        public async Task<ActionResult> UpdateTicket(Guid? id, Ticket ticket)
+        {
+            try
+            {
+                ticket.useDate = DateTime.Now;
+                ticket.isUsed = true;
+
+                _context.Tickets.Update(ticket);
+                await _context.SaveChangesAsync(); 
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                if (dbUpdateException.InnerException.Message.Contains("duplicate"))
+                    return Conflict("ya existe");
+            }
+            catch (Exception e)
+            {
+                return Conflict(e.Message);
+            }
+
+            return Ok(ticket);
+        }
+
+        */
+
+
+    }
+}
