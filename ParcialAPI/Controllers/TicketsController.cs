@@ -72,7 +72,7 @@ namespace ParcialAPI.Controllers
 
         [HttpPut, ActionName("Put")]
         [Route("Put/{id}")]
-        public async Task<ActionResult<Ticket>> Verificar(Guid? id, String entranceGate)
+        public async Task<ActionResult<Ticket>> Verificar(Guid? id, Ticket Ticket)
         {
             var ticket = await _context.Tickets.FirstOrDefaultAsync(j => j.id == id);
 
@@ -84,7 +84,7 @@ namespace ParcialAPI.Controllers
                     {
                         ticket.useDate = DateTime.Now;
                         ticket.isUsed = true;
-                        ticket.entranceGate = entranceGate;
+                        ticket.entranceGate = Ticket.entranceGate;
 
                         _context.Tickets.Update(ticket);
                         await _context.SaveChangesAsync();

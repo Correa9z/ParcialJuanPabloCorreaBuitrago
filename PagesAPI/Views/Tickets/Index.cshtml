@@ -5,10 +5,27 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Verificación de Tiquetes</h1>
-<input placeholder="Ingrese el Id" asp-for="id"/>
-<input placeholder="Ingrese la puerta de entrada" asp-for="entranceGate" />
-<a asp-action="Verificar" class="btn btn-outline-primary">Verificar</a>
+<!DOCTYPE html>
+
+<html>
+   <head>
+
+   </head>
+   <body>
+       <div>
+           <h1>Verificación de Tiquetes</h1>
+           <form action="Tickets/Verificar" method="post">
+               <label>Id Tiquete:<input type="text" name="id" value=" " /></label><br />
+               <label>Puerta Entrada:<input type="text" name="entranceGate" value=" " /></label><br />
+               <input type="submit" name="Verificar" value="Verificar"/>
+           </form>
+       </div>
+   </body>
+</html>
+
+
+
+
 
 
 
