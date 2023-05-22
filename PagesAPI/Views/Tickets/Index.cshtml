@@ -1,11 +1,13 @@
-﻿
+﻿@model ParcialAPI.DAL.Entities.Ticket
+
+
 @{
     ViewData["Title"] = "Index";
 }
 
 <h1>Verificación de Tiquetes</h1>
-<input placeholder="Ingrese el Id"/>
-<input placeholder="Ingrese la puerta de entrada"/>
+<input placeholder="Ingrese el Id" asp-for="id"/>
+<input placeholder="Ingrese la puerta de entrada" asp-for="entranceGate" />
 <a asp-action="Verificar" class="btn btn-outline-primary">Verificar</a>
 
 

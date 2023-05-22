@@ -30,17 +30,22 @@ namespace PagesAPI.Controllers
         [HttpGet]
         public async Task<ActionResult> Verificar(Guid id)
         {
-            
-             var url = String.Format("https://localhost:7173/api/Tickets/Get/{0}", id);
-             var json = await _HttpClient.CreateClient().GetStringAsync(url);
-             Ticket tickets = JsonConvert.DeserializeObject<Ticket>(json);
-              if (tickets != null)
-              {
-                 return View();
-              }
 
-                return View();
-            
+            var url = String.Format("https://localhost:7173/api/Tickets/Get/{0}",id);
+            var json = await _HttpClient.CreateClient().GetStringAsync(url);
+            Ticket tickets = JsonConvert.DeserializeObject<Ticket>(json);
+
+
+
+            if (tickets != null)
+            {
+                if (tickets.isUsed == false)
+                {
+                    return View();
+                }
+            }
+            return NotFound();
+
 
 
         }

@@ -45,11 +45,34 @@ namespace ParcialAPI.Controllers
             return Ok(ticket);
         }
 
-
-
         [HttpGet, ActionName("Get")]
         [Route("Get/{id}")]
-        public async Task<ActionResult<Ticket>> GetTicketById(Guid? id, String entranceGate)
+        public async Task<ActionResult> GetTicketById(Guid id)
+        {
+            var ticket = await _context.Tickets.FirstOrDefaultAsync(j => j.id == id);
+
+            if (ticket != null)
+            {
+                if (ticket.isUsed == false)
+                {
+
+                    return Ok(ticket);
+
+                }
+
+            }
+
+            return Conflict("No se encontro");
+
+        }
+
+
+
+
+
+        [HttpPut, ActionName("Put")]
+        [Route("Put/{id}")]
+        public async Task<ActionResult<Ticket>> Verificar(Guid? id, String entranceGate)
         {
             var ticket = await _context.Tickets.FirstOrDefaultAsync(j => j.id == id);
 
