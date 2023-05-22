@@ -15,9 +15,16 @@
        <div>
            <h1>Verificación de Tiquetes</h1>
            <form action="Tickets/Verificar" method="post">
-               <label>Id Tiquete:<input type="text" name="id" value=" " /></label><br />
-               <label>Puerta Entrada:<input type="text" name="entranceGate" value=" " /></label><br />
-               <input type="submit" name="Verificar" value="Verificar"/>
+            <div class="mb-3">
+                <label class="form-label">Id Tiquete:</label>
+                <input class="form-control" type="text" name="id" value=" " />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Puerta Entrada:</label>
+                <input class="form-control" type="text" name="entranceGate" value=" " />
+            </div>
+
+            <input class="btn btn-outline-dark" type="submit" name="Verificar" value="Verificar" />
            </form>
        </div>
    </body>
