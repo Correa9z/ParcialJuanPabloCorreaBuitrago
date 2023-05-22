@@ -61,7 +61,7 @@ namespace ParcialAPI.Controllers
 
             }
 
-            return Conflict("No se encontro");
+            return Ok();
 
         }
 

@@ -34,7 +34,7 @@ namespace PagesAPI.Controllers
             var entranceGate = Request.Form["entranceGate"].ToString();
             var url = String.Format("https://localhost:7173/api/Tickets/Get/{0}", id);
             var json = await _HttpClient.CreateClient().GetStringAsync(url);
-            Ticket tickets = JsonConvert.DeserializeObject<Ticket>(json);
+            Ticket? tickets = JsonConvert.DeserializeObject<Ticket>(json);
 
 
 
@@ -45,22 +45,23 @@ namespace PagesAPI.Controllers
                     tickets.entranceGate = entranceGate;
                     url = String.Format("https://localhost:7173/api/Tickets/Put/{0}", id);
                     await _HttpClient.CreateClient().PutAsJsonAsync(url, tickets);
-                    ViewData["Message"] = "Se valido Correctamente el Tiquete";
+                    ViewData["Message"] = "Boleta Válida, puede ingresar al concierto";
                     return View();
 
                 }
                 else
                 {
-                    ViewData["Message"] = "El Tiquete ya fue Usado";
+                    ViewData["Message"] =String.Format("Boleta ya usada, Entrada: {0}  Fecha: {1}",tickets.entranceGate, tickets.useDate);
+                    
                     return View();
                 }
 
 
 
             }
-            return NotFound();
+            ViewData["Message"] = "Boleta Invalida";
+            return View();
 
-            
 
 
         }
