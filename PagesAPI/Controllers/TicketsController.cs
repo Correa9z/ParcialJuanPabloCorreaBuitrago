@@ -45,13 +45,22 @@ namespace PagesAPI.Controllers
                     tickets.entranceGate = entranceGate;
                     url = String.Format("https://localhost:7173/api/Tickets/Put/{0}", id);
                     await _HttpClient.CreateClient().PutAsJsonAsync(url, tickets);
+                    ViewData["Message"] = "Se valido Correctamente el Tiquete";
+                    return View();
 
+                }
+                else
+                {
+                    ViewData["Message"] = "El Tiquete ya fue Usado";
                     return View();
                 }
+
+
 
             }
             return NotFound();
 
+            
 
 
         }

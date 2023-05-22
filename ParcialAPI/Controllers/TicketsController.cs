@@ -53,12 +53,11 @@ namespace ParcialAPI.Controllers
 
             if (ticket != null)
             {
-                if (ticket.isUsed == false)
-                {
+                
 
-                    return Ok(ticket);
+                return Ok(ticket);
 
-                }
+                
 
             }
 
