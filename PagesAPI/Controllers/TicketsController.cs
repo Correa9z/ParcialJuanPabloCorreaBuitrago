@@ -31,7 +31,7 @@ namespace PagesAPI.Controllers
         public async Task<ActionResult> Verificar(Guid id)
         {
 
-            var url = String.Format("https://localhost:7173/api/Tickets/Get/{0}",id);
+            var url = "https://localhost:7173/api/Tickets/Get/895645fe-2b9f-4de4-34e7-08db5a44ff83";
             var json = await _HttpClient.CreateClient().GetStringAsync(url);
             Ticket tickets = JsonConvert.DeserializeObject<Ticket>(json);
 
@@ -49,6 +49,24 @@ namespace PagesAPI.Controllers
 
 
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Verificar(Guid id, Ticket ticket)
+        {
+
+            var url = "https://localhost:7173/api/Tickets/Get/895645fe-2b9f-4de4-34e7-08db5a44ff83";
+            await _HttpClient.CreateClient().PutAsJsonAsync(url, ticket);
+
+            return RedirectToAction("index");
+
+
+
+        }
+
+
+
+
 
 
     }
