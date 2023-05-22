@@ -88,31 +88,7 @@ namespace ParcialAPI.Controllers
 
         }
 
-        /*
-        public async Task<ActionResult> UpdateTicket(Guid? id, Ticket ticket)
-        {
-            try
-            {
-                ticket.useDate = DateTime.Now;
-                ticket.isUsed = true;
-
-                _context.Tickets.Update(ticket);
-                await _context.SaveChangesAsync(); 
-            }
-            catch (DbUpdateException dbUpdateException)
-            {
-                if (dbUpdateException.InnerException.Message.Contains("duplicate"))
-                    return Conflict("ya existe");
-            }
-            catch (Exception e)
-            {
-                return Conflict(e.Message);
-            }
-
-            return Ok(ticket);
-        }
-
-        */
+      
 
 
     }
